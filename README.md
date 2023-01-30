@@ -13,11 +13,17 @@ Para esta práctica primero en el servicio EC2, iremos a Grupos de Seguridad y c
 Seguimos en el servicio EC2 y ahora creamos una EC2 que se llamará Linux_01, con Amazon Linux, par de claves vockey, la VPC predeterminada pero elegimos la subred a, y permitimos que asigne una ip pública, se le asigna el grupo de seguridad que antes hemos creado con el nombre Sgweb. En configuración avanzada introducimos los datos de usuario que se muestran a continuación:
 
 #!/bin/bash
+
 yum update -y
+
 yum install httpd -y
+
 systemctl start httpd
+
 systemctl enable httpd
+
 yum -y install nfs-utils
+
 
 Y lanzamos la instancia, mientras crearemos otra instancia llamada Linux_02, con la misma configuración Amazon Linux,par de claves vockey, VPC predeterminada pero con subred b y el mismo grupo de seguridad llamado SGweb y volvemos a configuración avanzada para pegar los datos de usuario, por último lanzamos la instancia.
 
