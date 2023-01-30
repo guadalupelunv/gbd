@@ -24,6 +24,7 @@ systemctl enable httpd
 
 yum -y install nfs-utils
 
+![Datos de usuario](image/usuario.png)
 
 Y lanzamos la instancia, mientras crearemos otra instancia llamada Linux_02, con la misma configuración Amazon Linux,par de claves vockey, VPC predeterminada pero con subred b y el mismo grupo de seguridad llamado SGweb y volvemos a configuración avanzada para pegar los datos de usuario, por último lanzamos la instancia.
 
@@ -31,7 +32,11 @@ Y lanzamos la instancia, mientras crearemos otra instancia llamada Linux_02, con
 
 En el servicio EFS, vamos a crear un sistema de ficheros, llamado minfs y tendrá el VPC por defecto y elegimos la opción Estándar para que esté disponible en todas las zonas de disponibilidad.
 
+![EFS](image/usuario.png)
+
 Entramos en nuestro sistema de ficheros llamado miefs y accederemos a los grupos de seguridad y en todas las subredes le asignaremos el grupo de seguridad SGEfs. 
+
+![EFS](image/seguridad.png)
 
 ### Configuración de los servidores web
 
