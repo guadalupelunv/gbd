@@ -32,7 +32,7 @@ Y lanzamos la instancia, mientras crearemos otra instancia llamada Linux_02, con
 
 En el servicio EFS, vamos a crear un sistema de ficheros, llamado minfs y tendrá el VPC por defecto y elegimos la opción Estándar para que esté disponible en todas las zonas de disponibilidad.
 
-![EFS](image/usuario.png)
+![EFS](image/efs.png)
 
 Entramos en nuestro sistema de ficheros llamado miefs y accederemos a los grupos de seguridad y en todas las subredes le asignaremos el grupo de seguridad SGEfs. 
 
