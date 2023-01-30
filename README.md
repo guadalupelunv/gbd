@@ -49,3 +49,7 @@ Ahora con otro comando nos descargaremos la página web:
 “wget https://s3.eu-west-1.amazonaws.com/www.profesantos.cloud/Netflix.zip”, lo descomprimimos con el comando “unzip Netflix.zip” y ya estaría la página web.
 
 Estos pasos también la hacemos en la segunda máquina EC2 para así que se vea la misma página web en los dos servidores. Si buscamos nuestra ip en internet y en la ruta accedemos al html de la página web se visualizará, ahora vamos a modificar el archivo de Apache para simplemente acceder a la página con nuestra ip.
+
+Así que modificaremos el archivo /etc/httpd/conf/httpd.conf con “sudo nano” o “vim” y modificaremos el DocumentRoot a DocumentRoot "/var/www/html/efs-mount", y después reiniciaremos el servicio httpd con “systemctl restart httpd”, esto se hará en los dos servidores.
+
+Con esto ya estaría los servidores web configurados y si ponemos simplemente la ip de los servidores nos mostrará la página web.
