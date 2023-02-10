@@ -112,3 +112,13 @@ Tras esto reiniciaremos Apache de nuevo con "sudo systemctl restart apache2" y a
 ![Balanceador](img/balancer-manager.png)
 
 Con esto el balanceador funciona y si en algún momento se cae un nodo, el otro seguiría mostrando la página web.
+
+### Securización de los puertos
+
+Por último, debemos proteger y securizar el puerto 80 de los nodos que contienen la página Web para que solo se puedan acceder por el balanceador y no estén expuestos al público.
+
+Iremos al grupo de seguridad de estos que es el SGWeb y en la regla HTTP, en vez de Anywhere IPv4, pondremos la ip privada del balanceador.
+
+![Reglas de entrada](img/reglas.png)
+
+Aun modificando esto nuestra página web se verá igual de bien y no será tan fácilmente accesible.
