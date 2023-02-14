@@ -1,9 +1,26 @@
-## Gestión de Bases de Datos
-Repositorio para prácticas de Base de Datos
-
 ## Práctica 4.3: Despliegue de una arquitectura EFS-EC2-MultiAZ
 
+## Explicación del despliegue
 
+Crearemos en el servicio EFS un sistema de ficheros que será un sistema distribuido con un sistema NFS por el protocolo NFS y puerto 2049. Tendrá un grupo de seguridad con el puerto 2049 abierto y que solo puedan acceder las máquinas EC2 con apache para securizar todo.
+
+Se sumará a esto una máquina EC2, que tenga instalado Apache en la zona 1a y otra máquina EC2, que tenga instalado Apache en la zona 1b, que ambas configuradas para que sepan leer de la estructura de ficheros EFS, y con el puerto 22 y 80 abierto.
+
+Con esto tendremos una página web estática de alta disponibilidad y Multi A-Z, por si se nos cae la zona de disponibilidad 1a trabajaría con la 1b y al contrario.
+
+Además le añadiremos un balanceador de carga que será creado con una EC2 y se conectará a los servidores web para que distribuya automáticamente el tráfico.
+
+Por último creamos una RDS que recopile los datos que se recopilen del formulario de los servidores con el puerto 3306 abierto para que solo puedan acceder las máquinas del grupo de seguridad SGWeb.
+
+![Despliegue](img/despliegue.png)
+
+Con esto ya estaría listo nuestro despliegue con su balanceador de carga que distribuya el tráfico de la red a los dos servidores web que hemos levantado, que están en diferentes zonas de disponibilidad, en la a y b, con apache instalado y operando, en estos servidores guardamos nuestra página web.
+También tenemos un sistema de ficheros para que administre nuestros archivos en ambos servidores y si un servidor se cae que tenga la misma información que el otro.
+Y además tendrá una RDS conectada a las máquinas del grupos de seguridad web que guarde los datos introducidos por los servidores que acederá unicamente el balanceador.
+
+Tendremos una arquitectura en la nube con una alta disponibilidad, ya que cayendose un servidor todo seguiría funcionando por el otro, con alta escalabilidad ya que se podrían implementar facilmente más nodos, e incluso otras máquinas, con alta seguridad ya que hemos securizado los puertos para que solo accedan a los servidores web desde el balanceador y la base de datos solo accesible desde las instancias del grupo de seguridad web y con un alto rendimiento.
+
+## Creación del despliegue
 ### Creación de Grupos de Seguridad
 
 Para esta práctica primero en el servicio EC2, iremos a Grupos de Seguridad y creamos 2 grupos de seguridad, en uno lo llamaremos SGweb y abriremos el purto 80, HTTP desde cualquier IPv4 y el puerto 22 de SSH por si hay que modificarlo, el otro se llamará SGEfs con el puerto 2049 de NFS para cualquier IPv4. Quedando así:
@@ -304,7 +321,7 @@ Cuando se acabe de crear esta máquina y esté disponible, abriremos HeidiSQL y 
 
 ![HeidiSQL](img/heidisql.png)
 
-Cuando ya tenemos la página de consulta abierta escrebiremos el código para crear la base de datos que guarde la información de nuestra página web donde hemos introducido un link para hacer donativos. El script para crear la base de datos es:
+Cuando ya tenemos la página de consulta abierta escribiremos el código para crear la base de datos que guarde la información de nuestra página web donde hemos introducido un link para hacer donativos. El script para crear la base de datos es:
 
     CREATE DATABASE Cluster;
     USE Cluster;
